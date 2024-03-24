@@ -29,7 +29,6 @@ class CarModelListAPIView(generics.ListAPIView):
 class CarYearListAPIView(APIView):
     def get(self, request,):
         model_id = request.query_params.get('model_id', None)
-        print(model_id)
         car_years = Car.objects.filter(model_id=model_id).values_list('year', flat=True).distinct()
         return Response({'years': car_years})
 
