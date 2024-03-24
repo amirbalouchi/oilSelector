@@ -4,7 +4,7 @@ from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models.product import Category, RecommendedProduct
-from .serializers import CategorySerializer, CarSerializer, RecommendedProductSerializer
+from .serializers import *
 from .models.car import Car, CarMake, CarModel
 
 class CategoryListAPIView(generics.ListAPIView):
@@ -14,6 +14,24 @@ class CategoryListAPIView(generics.ListAPIView):
 class CarListAPIView(generics.ListAPIView):
     queryset = Car.objects.all()
     serializer_class = CarSerializer
+
+class CarMakeListAPIView(generics.ListAPIView):
+    queryset = CarMake.objects.all()
+    serializer_class = CarMakeSerializer
+
+class CarModelListAPIView(generics.ListAPIView):
+    serializer_class = CarModelSerializer
+
+    def get_queryset(self):
+        maker_id = self.request.query_params.get('maker_id', None)
+        return CarModel.objects.filter(make_id=maker_id)
+
+class CarYearListAPIView(APIView):
+    def get(self, request,):
+        model_id = request.query_params.get('model_id', None)
+        print(model_id)
+        car_years = Car.objects.filter(model_id=model_id).values_list('year', flat=True).distinct()
+        return Response({'years': car_years})
 
 class RecommendedProductForCarAPIView(generics.ListAPIView):
     serializer_class = RecommendedProductSerializer
