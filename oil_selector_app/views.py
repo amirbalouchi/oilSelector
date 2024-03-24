@@ -29,8 +29,8 @@ class CarModelListAPIView(generics.ListAPIView):
 class CarYearListAPIView(APIView):
     def get(self, request,):
         model_id = request.query_params.get('model_id', None)
-        car_years = Car.objects.filter(model_id=model_id).values_list('year', flat=True).distinct()
-        return Response({'years': car_years})
+        cars = Car.objects.filter(model_id=model_id).values('id', 'year').distinct()
+        return Response({'cars': cars})
 
 class RecommendedProductForCarAPIView(generics.ListAPIView):
     serializer_class = RecommendedProductSerializer
