@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-j4&0se0wdfvy+u1b2b1p1c(0+!_b4ptmg$188u5mu8b7guaj)6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['api.oilselector.motosel.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -75,10 +75,15 @@ WSGI_APPLICATION = 'oilSelector.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    "default": {
+        "default-character-set": "utf8",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("DATABASE__NAME"),
+        "HOST": os.getenv("DATABASE__HOST"),
+        "PORT": os.getenv("DATABASE__PORT"),
+        "USER": os.getenv("DATABASE__USER"),
+        "PASSWORD": os.getenv("DATABASE__PASSWORD"),
+    },
 }
 
 
