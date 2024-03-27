@@ -25,8 +25,9 @@ SECRET_KEY = 'django-insecure-j4&0se0wdfvy+u1b2b1p1c(0+!_b4ptmg$188u5mu8b7guaj)6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['api.oilselector.motosel.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['api.oilselector.motosel.com', 'oilselector.motosel.com','localhost', '127.0.0.1']
 
+CSRF_TRUSTED_ORIGINS = ['https://api.oilselector.motosel.com', 'https://oilselector.motosel.com']
 
 # Application definition
 
@@ -90,6 +91,12 @@ DATABASES = {
     },
 }
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": "mydatabase",
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
