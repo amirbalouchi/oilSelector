@@ -43,7 +43,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ['id', 'name', 'category', 'description', 'image', 'variants', 'created_at']
+        fields = ['id', 'name', 'category', 'description', 'image', 'external_url', 'variants', 'created_at']
 
 class RecommendedProductSerializer(serializers.ModelSerializer):
     car = CarSerializer()
