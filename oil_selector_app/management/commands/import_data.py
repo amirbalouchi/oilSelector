@@ -21,8 +21,9 @@ class Command(BaseCommand):
             try:
                 with open(file_path, 'r', encoding='utf-8') as file:
                     reader = csv.DictReader(file)
-                    for row in reader:
+                    for index, row in enumerate(reader, start=1):
                         try:
+                            print(f"Processing row {index}")
                             car = self.create_car(row)
                             category = self.create_category(row)
                             product = self.create_product(row, category)
