@@ -8,15 +8,15 @@ from .serializers import *
 from .models.car import Car, CarMake, CarModel
 
 class CategoryListAPIView(generics.ListAPIView):
-    queryset = Category.objects.all()
+    queryset = Category.objects.all().order_by('priority')
     serializer_class = CategorySerializer
 
 class CarListAPIView(generics.ListAPIView):
-    queryset = Car.objects.all()
+    queryset = Car.objects.all().order_by('year')
     serializer_class = CarSerializer
 
 class CarMakeListAPIView(generics.ListAPIView):
-    queryset = CarMake.objects.all()
+    queryset = CarMake.objects.order_by('name')
     serializer_class = CarMakeSerializer
 
 class CarModelListAPIView(generics.ListAPIView):
@@ -24,12 +24,12 @@ class CarModelListAPIView(generics.ListAPIView):
 
     def get_queryset(self):
         maker_id = self.request.query_params.get('maker_id', None)
-        return CarModel.objects.filter(make_id=maker_id)
+        return CarModel.objects.filter(make_id=maker_id).order_by('name')
 
 class CarYearListAPIView(APIView):
     def get(self, request,):
         model_id = request.query_params.get('model_id', None)
-        cars = Car.objects.filter(model_id=model_id).values('id', 'year').distinct()
+        cars = Car.objects.filter(model_id=model_id).values('id', 'year').distinct().order_by('year')
         return Response({'cars': cars})
 
 class RecommendedProductForCarAPIView(generics.ListAPIView):
