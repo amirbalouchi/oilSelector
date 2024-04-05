@@ -1,5 +1,3 @@
-# oil_selector_app/models/abstract_models.py
-
 from django.db import models
 from django.utils import timezone
 

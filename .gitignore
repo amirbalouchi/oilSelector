@@ -17,8 +17,8 @@ ENV/
 *.sublime-workspace
 *.sublime-project
 
-# Environment variables
-# .env
+Environment variables
+.env
 
 # Static files
 /staticfiles/
