@@ -1,5 +1,3 @@
-# oil_selector_app/models/car.py
-
 from django.db import models
 from .abstract_models import AbstractBaseModel
 

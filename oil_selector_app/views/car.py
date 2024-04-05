@@ -1,15 +1,8 @@
-# oil_selector_app/views.py
-
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models.product import Category, RecommendedProduct
-from .serializers import *
-from .models.car import Car, CarMake, CarModel
-
-class CategoryListAPIView(generics.ListAPIView):
-    queryset = Category.objects.all().order_by('priority')
-    serializer_class = CategorySerializer
+from ..serializers.car import *
+from ..models.car import *
 
 class CarListAPIView(generics.ListAPIView):
     queryset = Car.objects.all().order_by('year')
@@ -31,15 +24,3 @@ class CarYearListAPIView(APIView):
         model_id = request.query_params.get('model_id', None)
         cars = Car.objects.filter(model_id=model_id).values('id', 'year').distinct().order_by('year')
         return Response({'cars': cars})
-
-class RecommendedProductForCarAPIView(generics.ListAPIView):
-    serializer_class = RecommendedProductSerializer
-
-    def get_queryset(self):
-        car_id = self.request.query_params.get('car_id', None)
-        category_id = self.request.query_params.get('category_id', None)
-
-        if car_id is not None and category_id is not None:
-            return RecommendedProduct.objects.filter(car_id=car_id, product__category_id=category_id)
-        else:
-            return RecommendedProduct.objects.none()
